@@ -1,11 +1,13 @@
 package com.example.prueba
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,16 +15,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    val arriba = Random.nextInt(0,100)
-    val abajo = Random.nextInt(0,100)
+    val numberRandom = Random.nextInt(0,1000)
+
     fun getNumber(vista: View){
+        val ntxt = findViewById<EditText>(R.id.number).text.toString()
+        val n = Integer.valueOf(ntxt)
         val a = vista as Button
-        if(arriba > abajo && a.text.toString() == "Arriba"){
-            Toast.makeText(this, "Ganador arriba", Toast.LENGTH_LONG).show() //Mostrar texto en pantalla
-        }else if(abajo > arriba && a.text.toString() == "Abajo"){
-            Toast.makeText(this,"Ganador abajo", Toast.LENGTH_LONG).show() //Mostrar texto en pantalla
-        }else{
-            Toast.makeText(this, "Perdedor", Toast.LENGTH_LONG).show() //Mostrar texto en pantalla
+        if(n.toInt() > numberRandom && a.text.toString() == "Adivinar"){
+            Toast.makeText(this, "Te pasaste...", Toast.LENGTH_LONG).show() //Mostrar texto en pantalla
+        }else if(n.toInt() < numberRandom && a.text.toString() == "Adivinar"){
+            Toast.makeText(this, "Te quedaste...", Toast.LENGTH_LONG).show()
+        }else if(n.toInt() == numberRandom && a.text.toString() == "Adivinar"){
+            Toast.makeText(this, "¡Felicitaciones! Adivinaste el número", Toast.LENGTH_LONG).show()
         }
     }
 }
